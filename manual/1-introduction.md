@@ -87,13 +87,13 @@ For the charging circuit, the four subsystems that are needed are the Battery Mo
 
 The Battery Module Info subsystem is further broken down into two more subsystems, one for each battery pack shown below.
 
-<img src="images/Batteryinformationseperated.png">
+<img src="images/Batteryinformationseparated.png">
 
 In each of the battery pack subsystems, we have a Battery Module Info subsystem for each module. Each of these subsystems are connected with a FROM block going into the subsystem and the subsystem outputs to a scope block that will output the State of Charge (SOC), Current (A), voltage (V), and Cell Temperature (oC), shown below.
 
 <img src="images/Batteryinformationmodule.png">
 
-<img src="images/Batteryinformationmodule2.png">
+<img src="images/Batteryinfomodule.png">
 
 #### Charge Controls and Circuit<a name= "CController"></a>
 
@@ -101,7 +101,7 @@ In each of the battery pack subsystems, we have a Battery Module Info subsystem 
 
 The Charging Circuit subsystem supplies the capabilities to recharge the batteries to 2.2V and an average ampere hour of 11573.9 ±117.6A. The wiring is routed from this subsystem to the battery Conex container through the connection ports.
 
-<img src="images/ChargingPackscontroller.png">
+<img src="images/BatteryPacks controller.png">
 
 The Charging Circuit subsystem is broken into two subsystems, one for each battery pack as shown above. Each subsystem is further broken down into three battery chargers’ subsystems to charge seven battery modules as shown below. 
 
@@ -115,13 +115,13 @@ The battery chargers are further broken down into a 3-phase battery charger subs
 
 The Battery Charger (phase) subsystem that is created supplies 2.5V, 500A output as shown on the previous page. The charger block is set to 2.5V, 500A, and activates on a rising edge input. A physical (PS) step is utilized to turn on the system at time (t) greater than 0. The positive terminal is router through a single pole single throw (SPST) relay which controls whether the charger system is on or off. Then, afterwards is routed through a 1-ohm resistor to create a current flow. Then a PS controlled voltage source block is connected in parallel to the resistor. The signal is tapped off through the v terminal and is routed into a PS-Simulink converter which turns the physical signal into a Simulink signal. That Simulink signal is thrown into a Simulink controlled voltage source block which will out 2.5V and 500A. The Simulink controlled voltage source is connected to a positive and negative connection port which will then head to the charge circuit subsystem.
 
-<img src="images/BatteryChargerPhaseAon.png"> 
+<img src="images/Battery ChargerPhaseAon.png"> 
 
 The charge circuit subsystem controls the relays which connect the battery chargers to the batteries. When ChargingOn equals 1 from the Charge & Discharge Control Function subsystem, it will activate the ideal switch blocks which connects the In connection ports to the Out connection ports.
 
 Before charging can commence, the system must check the SOC of the batteries in each module. The battery is wired up to send the battery information using the GOTO block to the Battery Module Info subsystem in the control Conex Box.
 
-<img src="images/Batteryinformationmodule2"> 
+<img src="images/Batteryinfomodule"> 
 
 The SOC from the Battery Module Info subsystem is then routed to the Charge & Discharge Control Functions subsystem. It is inputted in the MATLAB Function block where it checks if it is less than 30%. Once it determines that it is below that value, it will output 1 for ChargingOn and 0 for LoadOn. The LoadOn is sent to the Discharge Control Circuit subsystem. While the ChargingOn is sent to the charging circuit as well as ideal switches within the battery modules.
 
@@ -129,11 +129,9 @@ The SOC from the Battery Module Info subsystem is then routed to the Charge & Di
 
 <img src="images/dischargefunctioncode.png"> 
 
-
-
 The batteries must be isolated thus breaking all series connections and putting them in parallel connections. This is accomplished by opening all the relays between modules and batteries shown on the next two pages. These relays are typically deenergized open. Currently, the setup for the relays utilizes binary input, 0 is open and 1 is closed. The AND gate shown below will output 0 to the relays due to the input LoadOn being 0 from the Charge & Discharge Control Function subsystem.
 
-<img src="images/Dischargecontrollcircuit.png"> 
+<img src="images/Dischargecontrolcircuit.png"> 
 
 <img src="images/BatteryIsolation.png"> 
 
@@ -181,7 +179,7 @@ The SOC from the Battery Module Info subsystem is then routed to the Charge & Di
 
 The batteries must be connected in series and isolating the parallel connections. This is accomplished by closing all the relays between modules and batteries shown on the next two pages. These relays are typically deenergized open. Currently, the setup for the relays utilizes binary input, 0 is open and 1 is closed. The AND gate shown below will output 1 to the relays due to the input LoadOn being 1 from the Charge & Discharge Control Function subsystem.
 
-<img src="images/Dischargecontrollcircuit.png"> 
+<img src="images/Dischargecontrolcircuit.png"> 
 
 <img src="images/BatteryIsolation.png"> 
 
@@ -193,7 +191,7 @@ Those series relays are just a rough breakdown of which ones to locate in the ba
 
 Once all the relays are in the correct position to commence charging, the system now looks like the six batteries connected in series within each battery module. All the modules within the battery pack are connected in series. A rough breakdown of how the system should act once the relays are in the correct position is shown on the next page, showing two of the six batteries in series. The battery is connected to a voltage measurement. The voltage measurements outputs to a Simulink-PS converter which will transform the Simulink signal to physical signal. That physical signal is routed into a physical controlled voltage source block. That physical controlled voltage source block outputs into the Bypass subsystem. The relays in between the Bypass subsystems are energized closed, thus making the system act as if it is just a wire connecting the two subsystems.
 
-<img src="images/BatteryDischard.png"> 
+<img src="images/BatteryDischarge.png"> 
 
 <img src="images/Bypasscircuit.png"> 
 
