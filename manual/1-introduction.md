@@ -1,25 +1,28 @@
 # Table of contents
 
 - [Table of contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Prerequisites](#prerequisites)
-    - [Setup Environment](#setup-environment)
-  - [Quick Start](#start)
-  - [Circuit Descriptions](#circuits)
-      - [Battery Farm Unit](#BFU)
-      - [Battery Conex](#BConex)
-      - [Battery Pack](#pack)
-      - [Battery Module](#module)
-      - [Controls Conex](#CConex)
-          - [Module Info](#module-info)
-          - [Charge Controls and Circuit](#CContoller)
-          - [Discharge Controls and Circuit](#DController)
-          - [Charge and Discharge Functions](#CDFunctions)
-          - [Power Output System](#power-output)
-          - [Bypass Circuit (battery count)](#bypass)
-          - [Thermal Circuit](#thermal)
-  - [MatLab Block Reference](#block)
-  - [Further Design Suggestions](#issues)
+  - [Introduction ](#introduction-)
+  - [Prerequisites ](#prerequisites-)
+    - [Setup Environment ](#setup-environment-)
+  - [Quick Start ](#quick-start-)
+  - [Circuit Descriptions](#circuit-descriptions)
+    - [Battery Farm Unit](#battery-farm-unit)
+    - [Battery Conex](#battery-conex)
+    - [Battery Pack](#battery-pack)
+    - [Battery Module](#battery-module)
+    - [Controls Conex](#controls-conex)
+      - [Module Info](#module-info)
+      - [Charge Controls and Circuit](#charge-controls-and-circuit)
+      - [Discharge Controls and Circuit](#discharge-controls-and-circuit)
+      - [Charge and Discharge functions](#charge-and-discharge-functions)
+      - [Power Output System](#power-output-system)
+      - [Bypass Circuit](#bypass-circuit)
+      - [Thermal Circuit](#thermal-circuit)
+  - [MatLab Block Reference ](#matlab-block-reference-)
+  - [Further Design Suggestions ](#further-design-suggestions-)
+    - [Simspace battery](#simspace-battery)
+    - [Incompatible Connections](#incompatible-connections)
+    - [Performance Issues](#performance-issues)
 
 ## Introduction <a name="introduction"></a>
 
@@ -184,7 +187,7 @@ The batteries must be connected in series and isolating the parallel connections
 
 <img src="images/ModuleIsolation.png"> 
 
-Those series relays are just a rough breakdown of which ones to locate in the battery module circuit. Additionally, prior to discharging commencing, another set of relays must be deenergized, relay set to 0, to the open position to prevent the batteries from being connected in parallel within the module shown on the next page. The ChargingOn FROM block from the Charge & Discharge Control Function subsystem will deenergize these relays because it will input a 0 into them.
+Those series relays are just a rough breakdown of which ones to locate in the battery module circuit. Additionally, prior to discharging commencing, another set of relays must be deenergized, relay set to 0, to the open position to prevent the batteries from being connected in parallel within the module shown on the next page. The ChargingOn FROM block from the Charge & Discharge Control Function subsystem will deenergize these relays because it will input a 0 into them. 
 
 <img src="images/Chargingconnection.png">
 
@@ -194,7 +197,7 @@ Once all the relays are in the correct position to commence charging, the system
 
 <img src="images/Bypasscircuit.png"> 
 
-For the standard discharge analysis using all 84 batteries, we will neglect energizing the single pole double throw (SPDT) relay and they will be left in the deenergized position. The IN connection port is either connected to the Positive connection port for the battery module or to the previous Bypass subsystem outside of this subsystem. The POS and NEG connection port in the Bypass subsystem is connected to the positive and negative terminal of the physical controlled voltage source block. Finally, the OUT connection port is connected to the next Bypass subsystem or the negative connection port for the battery module. With these relays deenergized, it puts all the physical controlled voltage source blocks in series which is similar to having the batteries in series. The analysis of energizing the Bypass relay with be discussed later in the manual.
+For the standard discharge analysis using all 84 batteries, we will neglect energizing the single pole double throw (SPDT) relay and they will be left in the deenergized position. The IN connection port is either connected to the Positive connection port for the battery module or to the previous Bypass subsystem outside of this subsystem. The POS and NEG connection port in the Bypass subsystem is connected to the positive and negative terminal of the physical controlled voltage source block. Finally, the OUT connection port is connected to the next Bypass subsystem or the negative connection port for the battery module. With these relays deenergized, it puts all the physical controlled voltage source blocks in series which is similar to having the batteries in series. The analysis of energizing the Bypass relay with be discussed later on in the manual.
 
 <img src="images/BatteryModules.png"> 
 
