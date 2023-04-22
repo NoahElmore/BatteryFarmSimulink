@@ -301,48 +301,48 @@ The 208V, 60Hz signal comes from the AC power source as this subsystem’s input
 ## MatLab Block Reference <a name="block"></a>
 
 (All these need pic to matlab reference page entry)
-- AC Voltage Source
-- AND Logic 
-- Battery
-- Bus Selector
-- Charger
-- Conductive Heat Transfer
-- Connection Port
+- [AC Voltage Source](https://www.mathworks.com/help/simscape/ref/acvoltagesource.html)
+- [AND Logic](https://www.mathworks.com/help/simulink/slref/logicaloperator.html)
+- [Battery](https://www.mathworks.com/help/sps/powersys/ref/battery.html)
+- [Bus Selector](https://www.mathworks.com/help/simulink/slref/busselector.html)
+- [Charger](https://www.mathworks.com/help/simscape-battery/ref/charger.html)
+- [Conductive Heat Transfer](https://www.mathworks.com/help/simscape/ref/conductiveheattransfer.html)
+- [Connection Port](https://www.mathworks.com/help/simscape/ref/connectionport.html)
 - Controlled Voltage Source simscape
-- Controlled Voltage Source simulink
-- Current Measurement
-- Eddy Current
-- Electromagnetic Converter
-- From
-- GOTO
-- Ground
-- Ideal Switch
-- Logical Operator
-- MATLAB Function Code
-- MATLAB Function
-- Magnetic reference
-- Memory
-- OR Logic
-- Open Circuit
-- PS Step
-- PS-Simulink converter
-- Product
-- Pulse Generator
-- Resistor
-- SPDT Relay
-- SPST Relay
-- Scope
-- Series RLC Branch
-- Simulink PS Converter
-- Solver Configuration
-- Subsystem
-- Temperature Sensor
-- Thermal Reference
-- Thermal Resistor
-- Thyristor
-- Voltage Sensor
-- Electrical Reference
-- PowerGui
+- [Controlled Voltage Source simulink](https://www.mathworks.com/help/simscape/ref/controlledvoltagesource.html)
+- [Current Measurement](https://www.mathworks.com/help/sps/powersys/ref/currentmeasurement.html)
+- [Eddy Current](https://www.mathworks.com/help/sps/ref/eddycurrent.html)
+- [Electromagnetic Converter](https://www.mathworks.com/help/simscape/ref/electromagneticconverter.html)
+- [From](https://www.mathworks.com/help/simulink/slref/from.html)
+- [GOTO](https://www.mathworks.com/help/simulink/slref/goto.html)
+- [Ground](https://www.mathworks.com/help/simscape/ref/electricalreference.html)
+- [Ideal Switch](https://www.mathworks.com/help/sps/ref/idealsemiconductorswitch.html)
+- [Logical Operator](https://www.mathworks.com/help/simulink/slref/logicaloperator.html)
+- [MATLAB Function Code](https://www.mathworks.com/help/rtw/ug/generate-code-for-a-model-with-simulink-functions.html)
+- [MATLAB Function](https://www.mathworks.com/help/simulink/ug/what-is-a-matlab-function-block.html)
+- [Magnetic reference](https://www.mathworks.com/help/simscape/ref/magneticreference.html)
+- [Memory](https://www.mathworks.com/help/simulink/slref/memory.html)
+- [OR Logic](https://www.mathworks.com/help/simulink/slref/logicaloperator.html)
+- [Open Circuit](https://www.mathworks.com/help/simscape/ref/opencircuit.html)
+- [PS Step](https://www.mathworks.com/help/simscape/ref/psstep.html)
+- [PS-Simulink converter](https://www.mathworks.com/help/simscape/ref/pssimulinkconverter.html)
+- [Product](https://www.mathworks.com/help/simulink/slref/product.html)
+- [Pulse Generator](https://www.mathworks.com/help/simulink/slref/pulsegenerator.html)
+- [Resistor](https://www.mathworks.com/help/simscape/ref/resistor.html)
+- [SPDT Relay](https://www.mathworks.com/help/sps/ref/spdtrelay.html)
+- [SPST Relay](https://www.mathworks.com/help/sps/ref/spstrelay.html)
+- [Scope](https://www.mathworks.com/help/simulink/slref/scope.html)
+- [Series RLC Branch](https://www.mathworks.com/help/sps/powersys/ref/seriesrlcbranch.html)
+- [Simulink PS Converter](https://www.mathworks.com/help/simscape/ref/simulinkpsconverter.html)
+- [Solver Configuration](https://www.mathworks.com/help/simscape/ref/solverconfiguration.html)
+- [Subsystem](https://www.mathworks.com/help/simulink/ug/creating-subsystems.html)
+- [Temperature Sensor](https://www.mathworks.com/help/simscape/ref/temperaturesensor.html)
+- [Thermal Reference](https://www.mathworks.com/help/simscape/ref/thermalreference.html)
+- [Thermal Resistor](https://www.mathworks.com/help/simscape/ref/thermalresistor.html)
+- [Thyristor](https://www.mathworks.com/help/sps/powersys/ref/thyristor.html)
+- [Voltage Sensor](https://www.mathworks.com/help/simscape/ref/voltagesensor.html)
+- [Electrical Reference](https://www.mathworks.com/help/simscape/ref/electricalreference.html)
+- [PowerGui](https://www.mathworks.com/help/sps/powersys/ref/powergui.html)
 
 ## Further Design Suggestions <a name="issues"></a>
 
@@ -357,5 +357,3 @@ Simulink simulation program does not easily allow for connections between differ
 ### Performance Issues
 
 The size of this circuit is massive, and we had to redesign it from the ground up as we were suffering time constraints due to new requirements for the project. This has caused the simulation to have performance issues. It takes five to 10 minutes to load up and it is a slow process currently to make any changes. We have not discovered the fix for these performance based issues due to time constraints.
-
-
