@@ -308,7 +308,7 @@ The 208V, 60Hz signal comes from the AC power source as this subsystem’s input
 - [Charger](https://www.mathworks.com/help/simscape-battery/ref/charger.html)
 - [Conductive Heat Transfer](https://www.mathworks.com/help/simscape/ref/conductiveheattransfer.html)
 - [Connection Port](https://www.mathworks.com/help/simscape/ref/connectionport.html)
-- Controlled Voltage Source simscape
+- [Controlled Voltage Source simscape](https://www.mathworks.com/help/sps/powersys/ref/controlledvoltagesource.html)
 - [Controlled Voltage Source simulink](https://www.mathworks.com/help/simscape/ref/controlledvoltagesource.html)
 - [Current Measurement](https://www.mathworks.com/help/sps/powersys/ref/currentmeasurement.html)
 - [Eddy Current](https://www.mathworks.com/help/sps/ref/eddycurrent.html)
