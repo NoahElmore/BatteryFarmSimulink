@@ -46,8 +46,22 @@ This document will explain how to:
 - [Simulink](https://www.mathworks.com/help/simulink/)
 
 ### Setup Environment <a name="setup-environment"></a>
+1. Install MATLAB 2022b with all packages.
+2. Setup a github account with a ssh token to access the remote repository.
+3. Sign into git on MATLAB.
+4. Create a new project from git.
+5. Include the path to the repository in the remote repository entry box.
+6. Pull the latest changes from the master branch.
 
+***A more detailed breakdown can be found under Git_For_Version_Control and Matlab_Simulink.pptx on the github remote repository***
 ## Quick Start <a name="start"></a>
+
+1. Open up the project and model names BatteryFarmTemplate.slx
+2. Press run to compile the simulation.
+
+************** 
+1. Open up the application labeled GUI.app.
+2. Click the start button.
 
 ## Circuit Descriptions<a name= "circuits"></a>
 
