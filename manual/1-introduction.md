@@ -46,14 +46,32 @@ This document will explain how to:
 - [Simulink](https://www.mathworks.com/help/simulink/)
 
 ### Setup Environment <a name="setup-environment"></a>
+1. Install MATLAB 2022b with all packages.
+2. Setup a github account with a ssh token to access the remote repository.
+3. Sign into git on MATLAB.
+4. Create a new project from git.
+5. Include the path to the repository in the remote repository entry box.
+6. Pull the latest changes from the master branch.
 
+***A more detailed breakdown can be found under Git_For_Version_Control and Matlab_Simulink.pptx on the github remote repository***
 ## Quick Start <a name="start"></a>
+
+1. Open up the project and model names BatteryFarmTemplate.slx
+2. Press run to compile the simulation.
+
+************** 
+1. Open up the application labeled GUI.app.
+2. Click the start button.
 
 ## Circuit Descriptions<a name= "circuits"></a>
 
 ### Battery Farm Unit<a name= "BFU"></a>
 
-The goal of this circuit is to charge up to 84 molten salt batteries in parallel. There are a few limitations that must be met: batteries cannot be charged above 3V, charging should not take more than 8 hours, charging can only occur when the system is secured, and charging should not occur during discharge. 
+The goal of this circuit is to charge up to 84 molten salt batteries in parallel. There are a few limitations that must be met: 
+- The supplied charging voltage can not exceed 3V 
+- Charging should not take more than 8 hours
+- Charging can only occur when the system is secured
+- Charging should not occur during discharge. 
 
 <img src="images/BothConexContainers.png">
 
@@ -71,7 +89,10 @@ There are seven battery modules connected in series, each with a relay in-betwee
 
 ### Battery Module<a name= "module"></a>
 
-Within each module, there are six batteries wired up for charging and discharging along with receiving thermal input as shown below.
+Within each module, there are six batteries wired up for charging and discharging along with receiving thermal input as shown below.There are seven of these modules in total and here are some notes on them. 
+- Each module is wired to charge in parallel and discharge in series. This is done with a series relay present next to every module. 
+- Each module has a positive and negative charging port. 
+- The positive and negative outputs are shown with the Discharge tag.
 
 <img src="images/BatteryModules.png">
 
@@ -85,7 +106,7 @@ For the charging circuit, the four subsystems that are needed are the Battery Mo
 
 <img src="images/Batteryinformationsubsystem.png">
 
-The Battery Module Info subsystem is further broken down into two more subsystems, one for each battery pack shown below.
+There is a battery information subsystem for each module. The Battery Module Info subsystem is further broken down into two more subsystems, one for each battery pack shown below.
 
 <img src="images/Batteryinformationseparated.png">
 
@@ -109,11 +130,11 @@ The Charging Circuit subsystem is broken into two subsystems, one for each batte
 
 <img src="images/BatteryCharger1.png">
 
-The battery chargers are further broken down into a 3-phase battery charger subsystem and a charge circuit subsystem as shown above. The 3-phase battery charger subsystem was designed due to a part that was researched about industrial grade battery chargers which supplied 24V, 500A and had a 3-phase output which each phase could power another system.
+The battery chargers are further broken down into a 3-phase battery charger subsystem and a charge circuit subsystem as shown above. The 3-phase battery charger subsystem was designed due to a part that was researched about [industrial grade battery chargers](https://www.lamarchemfg.com/products/a77-scr-battery-charger.html) which supplied 24V, 500A and had a 3-phase output which each phase could power another system.
 
 <img src="images/BatteryChargerPhaseAcircuit.png"> 
 
-The Battery Charger (phase) subsystem that is created supplies 2.5V, 500A output as shown on the previous page. The charger block is set to 2.5V, 500A, and activates on a rising edge input. A physical (PS) step is utilized to turn on the system at time (t) greater than 0. The positive terminal is router through a single pole single throw (SPST) relay which controls whether the charger system is on or off. Then, afterwards is routed through a 1-ohm resistor to create a current flow. Then a PS controlled voltage source block is connected in parallel to the resistor. The signal is tapped off through the v terminal and is routed into a PS-Simulink converter which turns the physical signal into a Simulink signal. That Simulink signal is thrown into a Simulink controlled voltage source block which will out 2.5V and 500A. The Simulink controlled voltage source is connected to a positive and negative connection port which will then head to the charge circuit subsystem.
+The Battery Charger (phase) subsystem that is created supplies 2.5V, 500A output as shown above. The charger block is set to 2.5V, 500A, and activates on a rising edge input. A physical (PS) step is utilized to turn on the system at time (t) greater than 0. The positive terminal is router through a single pole single throw (SPST) relay which controls whether the charger system is on or off. Then, afterwards is routed through a 1-ohm resistor to create a current flow. Then a PS controlled voltage source block is connected in parallel to the resistor. The signal is tapped off through the v terminal and is routed into a PS-Simulink converter which turns the physical signal into a Simulink signal. That Simulink signal is thrown into a Simulink controlled voltage source block which will out 2.5V and 500A. The Simulink controlled voltage source is connected to a positive and negative connection port which will then head to the charge circuit subsystem.
 
 <img src="images/Battery ChargerPhaseAon.png"> 
 
@@ -121,7 +142,7 @@ The charge circuit subsystem controls the relays which connect the battery charg
 
 Before charging can commence, the system must check the SOC of the batteries in each module. The battery is wired up to send the battery information using the GOTO block to the Battery Module Info subsystem in the control Conex Box.
 
-<img src="images/Batteryinfomodule"> 
+<img src="images/Batteryinfomodule.png"> 
 
 The SOC from the Battery Module Info subsystem is then routed to the Charge & Discharge Control Functions subsystem. It is inputted in the MATLAB Function block where it checks if it is less than 30%. Once it determines that it is below that value, it will output 1 for ChargingOn and 0 for LoadOn. The LoadOn is sent to the Discharge Control Circuit subsystem. While the ChargingOn is sent to the charging circuit as well as ideal switches within the battery modules.
 
@@ -133,11 +154,13 @@ The batteries must be isolated thus breaking all series connections and putting 
 
 <img src="images/Dischargecontrolcircuit.png"> 
 
-<img src="images/BatteryIsolation.png"> 
+<img src="images/BatteryIsolation.png">
+
+The Bypass circuits are fitted with relays to be able to disconnect batteries. This will vary the battery count in the simulation based on user input.
 
 <img src="images/ModuleIsolation.png"> 
 
-Those series relays are just a rough breakdown of which ones to locate in the battery module circuit. Additionally, prior to charging commencing, another set of relays must be energized, relay set to 1, to the closed position to connect all the batteries in parallel within the module shown on the next page. The ChargingOn FROM block from the Charge & Discharge Control Function subsystem will energize these relays because it will input a 1 into them.
+The series relays shown with the arrows above are just a rough breakdown of which ones to locate in the battery module circuit. Additionally, prior to charging commencing, another set of relays must be energized, relay set to 1, to the closed position to connect all the batteries in parallel within the module shown on the next page. The ChargingOn FROM block from the Charge & Discharge Control Function subsystem will energize these relays because it will input a 1 into them.
 
 <img src="images/Chargingconnection.png"> 
 
@@ -218,7 +241,7 @@ The voltage and amperage FROM blocks from the discharge circuit in the battery C
 
 The Charge & Discharge Control Functions subsystem is an automatic process that will discharge the batteries when the SOC is greater than or equal to 80% and charge the batteries when the SOC reaches 30%. 
 
-The subsystem is broken into two subsystems, one for each battery pack as shown above. Each battery pack is further broken down by a function subsystem corresponding to the module that they control as shown below.
+The subsystem is broken into two subsystems, one for each battery pack as shown above. Each battery pack is further broken down by a function subsystem corresponding to the module that they control as shown below. There are function blocks for each module.
 
 <img src="images/Functionspermodule.png"> 
 <img src="images/dischargefunction.png"> 
@@ -252,12 +275,12 @@ For the bypass circuit, only one subsystem is required in the Controls Conex con
 
 <img src="images/Bypasspack.png">
 
-<img src="images/Bypassmodule.png"> 
-
 
 The Bypass Control Circuit subsystem is broken down into two subsystems, one for each battery pack. Each battery pack is further broken down into the seven module subsystems in the battery pack.
 
 <img src="images/Bypasscontrolcircuit.png">
+
+Total of six Bypass GOTO blocks
 
 Inside each module is a series of GOTO blocks that will send signals to their applicable Bypass subsystem in their Battery Module subsystem in the Battery Conex container. This system is incomplete due to time constraints. What this system was originally designed to do was take user inputs on how many batteries they would like to simulate and send out a signal to applicable Bypass subsystems to energize them thus essentially bypassing that battery.
 
@@ -275,6 +298,8 @@ First, the charging system is broken up into two areas, the control and battery 
 The Thermal Control Circuit subsystem controls turning on and off the thermal system. Heating up or cooling off the batteries. The Thermal Control Circuit subsystem is broken up into two subsystems, one of each battery pack.
 
 <img src="images/thermalcontrolcircuit.png"> 
+
+Total of 7 Thermal control circuits per pack.
 
 Inside the battery pack subsystem are a series of GOTO blocks responsible for each battery module. This is incomplete due to time constraints. The system was supposed to be designed for turning on the thermal system in each battery module when it is time to heat the batteries.
 
